@@ -1,0 +1,5 @@
+%{
+  "complex": {:hex, :complex, "0.4.2", "923e5db0be13dbb3ea00cf8459d9f75f3afdd9ff5a82742ded21064330d28273", [:mix], [], "hexpm", "069a085ef820ce675a2619fd125b963ff4514af2102c7f7d7965128e5ec0a429"},
+  "dep_from_hexpm": {:hex, :dep_from_hexpm, "0.3.0", "e820a753364b715e84457836317107c340d3bdcaa21b469272da79f29ef5f5cb", [:mix], [], "hexpm", "55b0c9db6c5666a4358e1d8e799f43f3fa091ef036dc0d09bf5ee9f091f07b6d"},
+  "nx": {:hex, :nx, "0.3.0", "12448769619ed1442e22bd198faf4629ae3d0ee3ed565e42be49829cc42bf35f", [:mix], [{:complex, "~> 0.4.2", [hex: :complex, repo: "hexpm", optional: false]}], "hexpm", "d08d8962f4379ade54281aad84c45cb7eb0118b406fc836f07b94acc40df5859"},
+}
