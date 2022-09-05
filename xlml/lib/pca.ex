@@ -1,30 +1,58 @@
 defmodule PCA do
   import Nx.Defn
 
-  def metric(x, y, params) do
+  # this corresponds to aggregate average reconstruction error
+  def metric(z, u_truncated_t, x_centered) do
+    elem_num = elem(Nx.shape(x_centered), 0) * elem(Nx.shape(x_centered), 1)
 
-    if elem(Nx.shape(y), 0) == 1 do
-      -1.0
-    else
-      y_hat = forward(x, params)
-      rss = Nx.sum(Nx.power(Nx.subtract(y, y_hat), 2))
+    x_reconstructed = Nx.dot(z, Nx.transpose(u_truncated_t))
 
-      tss = Nx.sum(Nx.power(Nx.subtract(y, Nx.mean(y)), 2))
+    x_diff = Nx.subtract(x_centered, x_reconstructed)
 
-      corr = Nx.subtract(1, Nx.divide(rss, tss))
-      corr
-    end
+
+    Nx.divide(Nx.sum(x_diff), elem_num)
+
   end
 
-  def fit(x, k) do
+  # choose only the first gamma entries of U
+  def fit(x, gamma) do
 
-    cov_mat = Nx.divide(Nx.dot(X, Nx.transpose(X))
+    k = elem(Nx.shape(x), 1)
 
-    params
+    mu = Nx.mean(x, axes: [1])
+    mu_square = Nx.outer(mu, Nx.transpose(mu))
+
+    x_centered = Nx.subtract(Nx.transpose(x), Nx.broadcast(mu, Nx.transpose(x).shape))
+
+    x_square = Nx.dot(x, Nx.transpose(x))
+
+
+    cov_mat = Nx.subtract(Nx.divide(x_square, (k - 1)), Nx.multiply(mu_square, (k/(k - 1))))
+
+    {u, s, v} = Nx.LinAlg.svd(cov_mat)
+
+
+
+    u_t = Nx.transpose(u)
+
+
+    u_truncated_t = Nx.slice(u_t, [0, 0], [elem(u_t.shape, 0), gamma])
+
+    z = Nx.dot(x_centered, u_truncated_t)
+
+    # ret value:
+    {z, u_truncated_t, x_centered}
   end
 end
 
-x = Nx.tensor([[1, 2], [2, 4]]) # {0, 1}, 0
-k = 1
+x = Nx.tensor([[1,2],[3,4], [6,4]])
+k = 2
 
-params = PCA.fit(x, k)
+{z, u_truncated_t, x_centered} = PCA.fit(x, k)
+
+IO.inspect(z)
+
+
+# m = PCA.metric(z, u_truncated_t, x_centered)
+
+# IO.inspect(m) # 0 avg aggregate reconstruction error
