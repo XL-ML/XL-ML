@@ -1,3 +1,5 @@
+![icon](icon.png)
+
 # XLML: Machine Learning for Elixir 
 
 Elixir is a favorite among functional programmers and other enthusiasts. Support for native machine learning in Elixir, specifically regresssion algorithms, seems to be lacking for this erlang based language. Through XL-ML, we bring ML algorithms, completely vectorized with [Nx](https://github.com/elixir-nx/nx) to the Elixir
