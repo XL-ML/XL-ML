@@ -33,16 +33,14 @@ As can be seen, XL-ML is efficient, optimized, and descriptive.
 
 A list of all algorithms in production is listed below. 
 
-**Regression**
-   - Linear Regression 
-   - Logistic Regression
-   - Softmax Regression
-   - Probit Regression
-<p>
-**Clustering**
-   - k-Nearest Neighbors
-</p>
-<p>
-**Dimensionality Reduction**
-   - PCA
-</p>
+### Regression
+- Linear
+- Logistic
+- Softmax
+- Probit
+
+### Clustering
+- K-Nearest Neighbors Classification
+
+### Dimensionality Reduction
+- Principal Component Analysis (PCA)
