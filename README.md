@@ -38,9 +38,11 @@ A list of all algorithms in production is listed below.
    - Logistic Regression
    - Softmax Regression
    - Probit Regression
-<p></p>
+<p>
 **Clustering**
    - k-Nearest Neighbors
-<p></p>
+</p>
+<p>
 **Dimensionality Reduction**
    - PCA
+</p>
