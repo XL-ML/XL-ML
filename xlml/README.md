@@ -1,21 +1,46 @@
-# Xlml
+# XLML: Machine Learning for Elixir 
 
-**TODO: Add description**
+Elixir is a favorite among functional programmers and other enthusiasts. Support for native machine learning in Elixir, specifically regresssion algorithms, seems to be lacking for this erlang based language. Through XL-ML, we bring ML algorithms, completely vectorized with [Nx](https://github.com/elixir-nx/nx) to the Elixir
+community.
 
-## Installation
+## Examples 
+For most algorithms, all that is required is passing data and labels, getting a parameters object, and passing that in for future predictions and evaluation. 
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `xlml` to your list of dependencies in `mix.exs`:
+An example is given below. All data is assumed to be of type `Nx.tensor`. 
 
 ```elixir
-def deps do
-  [
-    {:xlml, "~> 0.1.0"}
-  ]
-end
+x = Nx.tensor([[1, 2], [2, 4]])
+y =  Nx.tensor([2, 4])
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/xlml>.
+After setting up data, we are ready to train. 
 
+```elixir
+params = Regressor.LinReg.fit(x, y, epochs: 1000, lr: 0.0001)
+```
+
+With these `params` we can compute a metric: 
+
+```elixir 
+r2_score = Regressor.LinReg.metric(x_test, y_test, params)
+```
+
+The most intuitive metric is selected for each algorithm (e.g., r^2 for regression or reconstruction error for PCA).
+
+As can be seen, XL-ML is efficient, optimized, and descriptive. 
+
+## Algorithms 
+
+A list of all algorithms in production is listed below. 
+
+### Regression
+- Linear
+- Logistic
+- Softmax
+- Probit
+
+### Clustering
+- K-Nearest Neighbors Classification
+
+### Dimensionality Reduction
+- Principal Component Analysis (PCA)
